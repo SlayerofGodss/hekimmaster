@@ -12,6 +12,10 @@ import { RouterModule } from '@angular/router';
         path: 'randevu',
         loadChildren: () => import('./randevu/randevu.module').then(m => m.HekimmasterRandevuModule),
       },
+      {
+        path: 'day',
+        loadChildren: () => import('./day/day.module').then(m => m.HekimmasterDayModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

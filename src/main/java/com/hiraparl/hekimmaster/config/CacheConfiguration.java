@@ -53,6 +53,7 @@ public class CacheConfiguration {
             createCache(cm, com.hiraparl.hekimmaster.domain.User.class.getName() + ".authorities");
             createCache(cm, com.hiraparl.hekimmaster.domain.Patient.class.getName());
             createCache(cm, com.hiraparl.hekimmaster.domain.Randevu.class.getName());
+            createCache(cm, com.hiraparl.hekimmaster.domain.Day.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
