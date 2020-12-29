@@ -11,6 +11,7 @@
         "randevu": "Randevu",
         "day": "Day",
         "patientNote": "Patient Note",
+        "shortPatientNote": "Short Patient Note",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {

@@ -20,6 +20,10 @@ import { RouterModule } from '@angular/router';
         path: 'patient-note',
         loadChildren: () => import('./patient-note/patient-note.module').then(m => m.HekimmasterPatientNoteModule),
       },
+      {
+        path: 'short-patient-note',
+        loadChildren: () => import('./short-patient-note/short-patient-note.module').then(m => m.HekimmasterShortPatientNoteModule),
+      },
       /* jhipster-needle-add-entity-route - JHipster will add entity modules routes here */
     ]),
   ],

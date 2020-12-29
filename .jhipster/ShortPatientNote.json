@@ -1,0 +1,21 @@
+{
+  "fluentMethods": true,
+  "clientRootFolder": "",
+  "relationships": [],
+  "fields": [
+    {
+      "fieldName": "shortPatientNote",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "changelogDate": "20201230093014",
+  "dto": "mapstruct",
+  "searchEngine": false,
+  "service": "serviceClass",
+  "entityTableName": "short_patient_note",
+  "databaseType": "sql",
+  "readOnly": false,
+  "jpaMetamodelFiltering": true,
+  "pagination": "pagination"
+}

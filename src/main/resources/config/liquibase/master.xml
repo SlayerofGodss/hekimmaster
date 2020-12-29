@@ -18,6 +18,7 @@
     <include file="config/liquibase/changelog/20201228123321_added_entity_Randevu.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201229085441_added_entity_Day.xml" relativeToChangelogFile="false"/>
     <include file="config/liquibase/changelog/20201229140024_added_entity_PatientNote.xml" relativeToChangelogFile="false"/>
+    <include file="config/liquibase/changelog/20201230093014_added_entity_ShortPatientNote.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-changelog - JHipster will add liquibase changelogs here -->
     <include file="config/liquibase/changelog/20201228123321_added_entity_constraints_Randevu.xml" relativeToChangelogFile="false"/>
     <!-- jhipster-needle-liquibase-add-constraints-changelog - JHipster will add liquibase constraints changelogs here -->
