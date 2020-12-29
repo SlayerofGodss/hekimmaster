@@ -1,0 +1,22 @@
+{
+  "hekimmasterApp": {
+    "patientNote": {
+      "home": {
+        "title": "Patient Notes",
+        "createLabel": "Create a new Patient Note",
+        "createOrEditLabel": "Create or edit a Patient Note",
+        "notFound": "No Patient Notes found"
+      },
+      "created": "A new Patient Note is created with identifier {{ param }}",
+      "updated": "A Patient Note is updated with identifier {{ param }}",
+      "deleted": "A Patient Note is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Patient Note {{ id }}?"
+      },
+      "detail": {
+        "title": "Patient Note"
+      },
+      "patientNote": "Patient Note"
+    }
+  }
+}
