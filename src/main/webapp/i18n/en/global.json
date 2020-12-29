@@ -10,6 +10,7 @@
         "patient": "Patient",
         "randevu": "Randevu",
         "day": "Day",
+        "patientNote": "Patient Note",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
       },
       "account": {
