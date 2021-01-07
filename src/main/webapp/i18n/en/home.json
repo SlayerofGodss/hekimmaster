@@ -1,19 +1,16 @@
 {
   "home": {
-    "title": "Welcome, Java Hipster!",
-    "subtitle": "This is your homepage",
+    "title": "Hekimmaster'a hoş geldiniz",
+    "subtitle": "Anasayfa",
     "logged": {
-      "message": "You are logged in as user \"{{username}}\"."
+      "message": "Hoşgeldiniz \"{{username}}\"."
     },
-    "question": "If you have any question on JHipster:",
+    "question": "Hekimmaster ile ilgili sorularınızı yanıtlamaya hazırız!:",
     "link": {
-      "homepage": "JHipster homepage",
-      "stackoverflow": "JHipster on Stack Overflow",
-      "bugtracker": "JHipster bug tracker",
-      "chat": "JHipster public chat room",
-      "follow": "follow @jhipster on Twitter"
+      "homepage": "Hekimmaster Anasayfa",
+      "follow": "HİRA&PARL yazılım'ı instagramdan takip edin"
     },
-    "like": "If you like JHipster, don't forget to give us a star on",
+    "like": "Beğendiniz mi? Hadi yıldızlayalım",
     "github": "GitHub"
   }
 }
