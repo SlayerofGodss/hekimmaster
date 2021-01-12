@@ -30,8 +30,6 @@ maven-compile:
             - target/generated-sources/
         expire_in: 1 day
 
-
-
 frontend-test:
     stage: test
     script:
