@@ -34,7 +34,29 @@
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
-    "otherModules": [],
+    "otherModules": [
+      {
+        "name": "generator-jhipster-primeng",
+        "version": "9.1.0"
+      },
+      {
+        "name": "generator-jhipster-ngx-charts",
+        "version": "1.0.3"
+      },
+      {
+        "name": "generator-jhipster-imageblobcache",
+        "version": "1.0.2"
+      },
+      {
+        "name": "generator-jhipster-imageblobindexation",
+        "version": "2.0.3"
+      },
+      {
+        "name": "generator-jhipster-fullcalendar",
+        "version": "0.0.4"
+      }
+
+    ],
     "enableTranslation": true,
     "nativeLanguage": "en",
     "languages": ["en", "tr"],
