@@ -22,6 +22,10 @@ public class PatientDTO implements Serializable {
     @Max(value = 200)
     private Integer age;
 
+    @NotNull
+    @Pattern(regexp = "([0-9])\\w+")
+    private String tc;
+
     
     public Long getId() {
         return id;
@@ -55,6 +59,14 @@ public class PatientDTO implements Serializable {
         this.age = age;
     }
 
+    public String getTc() {
+        return tc;
+    }
+
+    public void setTc(String tc) {
+        this.tc = tc;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -80,6 +92,7 @@ public class PatientDTO implements Serializable {
             ", firstName='" + getFirstName() + "'" +
             ", lastName='" + getLastName() + "'" +
             ", age=" + getAge() +
+            ", tc='" + getTc() + "'" +
             "}";
     }
 }

@@ -18,7 +18,8 @@
       },
       "firstName": "First Name",
       "lastName": "Last Name",
-      "age": "Age"
+      "age": "Age",
+      "tc": "Tc"
     }
   }
 }

@@ -44,6 +44,9 @@ public class PatientResourceIT {
     private static final Integer UPDATED_AGE = 199;
     private static final Integer SMALLER_AGE = 200 - 1;
 
+    private static final String DEFAULT_TC = "0CC";
+    private static final String UPDATED_TC = "1nPYAn1";
+
     @Autowired
     private PatientRepository patientRepository;
 
@@ -74,7 +77,8 @@ public class PatientResourceIT {
         Patient patient = new Patient()
             .firstName(DEFAULT_FIRST_NAME)
             .lastName(DEFAULT_LAST_NAME)
-            .age(DEFAULT_AGE);
+            .age(DEFAULT_AGE)
+            .tc(DEFAULT_TC);
         return patient;
     }
     /**
@@ -87,7 +91,8 @@ public class PatientResourceIT {
         Patient patient = new Patient()
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
-            .age(UPDATED_AGE);
+            .age(UPDATED_AGE)
+            .tc(UPDATED_TC);
         return patient;
     }
 
@@ -114,6 +119,7 @@ public class PatientResourceIT {
         assertThat(testPatient.getFirstName()).isEqualTo(DEFAULT_FIRST_NAME);
         assertThat(testPatient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testPatient.getAge()).isEqualTo(DEFAULT_AGE);
+        assertThat(testPatient.getTc()).isEqualTo(DEFAULT_TC);
     }
 
     @Test
@@ -199,6 +205,26 @@ public class PatientResourceIT {
 
     @Test
     @Transactional
+    public void checkTcIsRequired() throws Exception {
+        int databaseSizeBeforeTest = patientRepository.findAll().size();
+        // set the field null
+        patient.setTc(null);
+
+        // Create the Patient, which fails.
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+
+        restPatientMockMvc.perform(post("/api/patients")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(patientDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPatients() throws Exception {
         // Initialize the database
         patientRepository.saveAndFlush(patient);
@@ -210,7 +236,8 @@ public class PatientResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(patient.getId().intValue())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)));
+            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
+            .andExpect(jsonPath("$.[*].tc").value(hasItem(DEFAULT_TC)));
     }
     
     @Test
@@ -226,7 +253,8 @@ public class PatientResourceIT {
             .andExpect(jsonPath("$.id").value(patient.getId().intValue()))
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
-            .andExpect(jsonPath("$.age").value(DEFAULT_AGE));
+            .andExpect(jsonPath("$.age").value(DEFAULT_AGE))
+            .andExpect(jsonPath("$.tc").value(DEFAULT_TC));
     }
 
 
@@ -509,6 +537,84 @@ public class PatientResourceIT {
         defaultPatientShouldBeFound("age.greaterThan=" + SMALLER_AGE);
     }
 
+
+    @Test
+    @Transactional
+    public void getAllPatientsByTcIsEqualToSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where tc equals to DEFAULT_TC
+        defaultPatientShouldBeFound("tc.equals=" + DEFAULT_TC);
+
+        // Get all the patientList where tc equals to UPDATED_TC
+        defaultPatientShouldNotBeFound("tc.equals=" + UPDATED_TC);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsByTcIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where tc not equals to DEFAULT_TC
+        defaultPatientShouldNotBeFound("tc.notEquals=" + DEFAULT_TC);
+
+        // Get all the patientList where tc not equals to UPDATED_TC
+        defaultPatientShouldBeFound("tc.notEquals=" + UPDATED_TC);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsByTcIsInShouldWork() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where tc in DEFAULT_TC or UPDATED_TC
+        defaultPatientShouldBeFound("tc.in=" + DEFAULT_TC + "," + UPDATED_TC);
+
+        // Get all the patientList where tc equals to UPDATED_TC
+        defaultPatientShouldNotBeFound("tc.in=" + UPDATED_TC);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsByTcIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where tc is not null
+        defaultPatientShouldBeFound("tc.specified=true");
+
+        // Get all the patientList where tc is null
+        defaultPatientShouldNotBeFound("tc.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllPatientsByTcContainsSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where tc contains DEFAULT_TC
+        defaultPatientShouldBeFound("tc.contains=" + DEFAULT_TC);
+
+        // Get all the patientList where tc contains UPDATED_TC
+        defaultPatientShouldNotBeFound("tc.contains=" + UPDATED_TC);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsByTcNotContainsSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where tc does not contain DEFAULT_TC
+        defaultPatientShouldNotBeFound("tc.doesNotContain=" + DEFAULT_TC);
+
+        // Get all the patientList where tc does not contain UPDATED_TC
+        defaultPatientShouldBeFound("tc.doesNotContain=" + UPDATED_TC);
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -519,7 +625,8 @@ public class PatientResourceIT {
             .andExpect(jsonPath("$.[*].id").value(hasItem(patient.getId().intValue())))
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
-            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)));
+            .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
+            .andExpect(jsonPath("$.[*].tc").value(hasItem(DEFAULT_TC)));
 
         // Check, that the count call also returns 1
         restPatientMockMvc.perform(get("/api/patients/count?sort=id,desc&" + filter))
@@ -568,7 +675,8 @@ public class PatientResourceIT {
         updatedPatient
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
-            .age(UPDATED_AGE);
+            .age(UPDATED_AGE)
+            .tc(UPDATED_TC);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc.perform(put("/api/patients")
@@ -583,6 +691,7 @@ public class PatientResourceIT {
         assertThat(testPatient.getFirstName()).isEqualTo(UPDATED_FIRST_NAME);
         assertThat(testPatient.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
+        assertThat(testPatient.getTc()).isEqualTo(UPDATED_TC);
     }
 
     @Test

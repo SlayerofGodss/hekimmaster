@@ -37,6 +37,11 @@ public class Patient implements Serializable {
     @Column(name = "age", nullable = false)
     private Integer age;
 
+    @NotNull
+    @Pattern(regexp = "([0-9]){11}\\w+")
+    @Column(name = "tc", nullable = false)
+    private String tc;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -84,6 +89,19 @@ public class Patient implements Serializable {
     public void setAge(Integer age) {
         this.age = age;
     }
+
+    public String getTc() {
+        return tc;
+    }
+
+    public Patient tc(String tc) {
+        this.tc = tc;
+        return this;
+    }
+
+    public void setTc(String tc) {
+        this.tc = tc;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -110,6 +128,7 @@ public class Patient implements Serializable {
             ", firstName='" + getFirstName() + "'" +
             ", lastName='" + getLastName() + "'" +
             ", age=" + getAge() +
+            ", tc='" + getTc() + "'" +
             "}";
     }
 }

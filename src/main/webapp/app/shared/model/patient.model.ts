@@ -3,8 +3,9 @@ export interface IPatient {
   firstName?: string;
   lastName?: string;
   age?: number;
+  tc?: string;
 }
 
 export class Patient implements IPatient {
-  constructor(public id?: number, public firstName?: string, public lastName?: string, public age?: number) {}
+  constructor(public id?: number, public firstName?: string, public lastName?: string, public age?: number, public tc?: string) {}
 }

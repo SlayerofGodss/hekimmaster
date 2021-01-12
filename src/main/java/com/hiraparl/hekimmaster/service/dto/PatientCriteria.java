@@ -32,6 +32,8 @@ public class PatientCriteria implements Serializable, Criteria {
 
     private IntegerFilter age;
 
+    private StringFilter tc;
+
     public PatientCriteria() {
     }
 
@@ -40,6 +42,7 @@ public class PatientCriteria implements Serializable, Criteria {
         this.firstName = other.firstName == null ? null : other.firstName.copy();
         this.lastName = other.lastName == null ? null : other.lastName.copy();
         this.age = other.age == null ? null : other.age.copy();
+        this.tc = other.tc == null ? null : other.tc.copy();
     }
 
     @Override
@@ -79,6 +82,14 @@ public class PatientCriteria implements Serializable, Criteria {
         this.age = age;
     }
 
+    public StringFilter getTc() {
+        return tc;
+    }
+
+    public void setTc(StringFilter tc) {
+        this.tc = tc;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -93,7 +104,8 @@ public class PatientCriteria implements Serializable, Criteria {
             Objects.equals(id, that.id) &&
             Objects.equals(firstName, that.firstName) &&
             Objects.equals(lastName, that.lastName) &&
-            Objects.equals(age, that.age);
+            Objects.equals(age, that.age) &&
+            Objects.equals(tc, that.tc);
     }
 
     @Override
@@ -102,7 +114,8 @@ public class PatientCriteria implements Serializable, Criteria {
         id,
         firstName,
         lastName,
-        age
+        age,
+        tc
         );
     }
 
@@ -114,6 +127,7 @@ public class PatientCriteria implements Serializable, Criteria {
                 (firstName != null ? "firstName=" + firstName + ", " : "") +
                 (lastName != null ? "lastName=" + lastName + ", " : "") +
                 (age != null ? "age=" + age + ", " : "") +
+                (tc != null ? "tc=" + tc + ", " : "") +
             "}";
     }
 
