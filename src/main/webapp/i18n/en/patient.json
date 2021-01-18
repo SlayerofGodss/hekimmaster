@@ -19,7 +19,8 @@
       "firstName": "First Name",
       "lastName": "Last Name",
       "age": "Age",
-      "tc": "Tc"
+      "tc": "Tc",
+      "sigorta": "Sigorta"
     }
   }
 }

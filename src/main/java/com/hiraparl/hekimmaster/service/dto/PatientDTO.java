@@ -26,6 +26,10 @@ public class PatientDTO implements Serializable {
     @Pattern(regexp = "([0-9])\\w+")
     private String tc;
 
+    @NotNull
+    @Size(max = 8)
+    private String sigorta;
+
     
     public Long getId() {
         return id;
@@ -67,6 +71,14 @@ public class PatientDTO implements Serializable {
         this.tc = tc;
     }
 
+    public String getSigorta() {
+        return sigorta;
+    }
+
+    public void setSigorta(String sigorta) {
+        this.sigorta = sigorta;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -93,6 +105,7 @@ public class PatientDTO implements Serializable {
             ", lastName='" + getLastName() + "'" +
             ", age=" + getAge() +
             ", tc='" + getTc() + "'" +
+            ", sigorta='" + getSigorta() + "'" +
             "}";
     }
 }

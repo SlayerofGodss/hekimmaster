@@ -26,6 +26,12 @@
       "fieldType": "String",
       "fieldValidateRules": ["required", "pattern"],
       "fieldValidateRulesPattern": "([0-9])\\w+"
+    },
+    {
+      "fieldName": "sigorta",
+      "fieldType": "String",
+      "fieldValidateRules": ["required", "maxlength"],
+      "fieldValidateRulesMaxlength": "8"
     }
   ],
   "changelogDate": "20201228074238",

@@ -44,8 +44,11 @@ public class PatientResourceIT {
     private static final Integer UPDATED_AGE = 199;
     private static final Integer SMALLER_AGE = 200 - 1;
 
-    private static final String DEFAULT_TC = "0CC";
-    private static final String UPDATED_TC = "1nPYAn1";
+    private static final String DEFAULT_TC = "0te";
+    private static final String UPDATED_TC = "6IxN41K";
+
+    private static final String DEFAULT_SIGORTA = "AAAAAAAA";
+    private static final String UPDATED_SIGORTA = "BBBBBBBB";
 
     @Autowired
     private PatientRepository patientRepository;
@@ -78,7 +81,8 @@ public class PatientResourceIT {
             .firstName(DEFAULT_FIRST_NAME)
             .lastName(DEFAULT_LAST_NAME)
             .age(DEFAULT_AGE)
-            .tc(DEFAULT_TC);
+            .tc(DEFAULT_TC)
+            .sigorta(DEFAULT_SIGORTA);
         return patient;
     }
     /**
@@ -92,7 +96,8 @@ public class PatientResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .age(UPDATED_AGE)
-            .tc(UPDATED_TC);
+            .tc(UPDATED_TC)
+            .sigorta(UPDATED_SIGORTA);
         return patient;
     }
 
@@ -120,6 +125,7 @@ public class PatientResourceIT {
         assertThat(testPatient.getLastName()).isEqualTo(DEFAULT_LAST_NAME);
         assertThat(testPatient.getAge()).isEqualTo(DEFAULT_AGE);
         assertThat(testPatient.getTc()).isEqualTo(DEFAULT_TC);
+        assertThat(testPatient.getSigorta()).isEqualTo(DEFAULT_SIGORTA);
     }
 
     @Test
@@ -225,6 +231,26 @@ public class PatientResourceIT {
 
     @Test
     @Transactional
+    public void checkSigortaIsRequired() throws Exception {
+        int databaseSizeBeforeTest = patientRepository.findAll().size();
+        // set the field null
+        patient.setSigorta(null);
+
+        // Create the Patient, which fails.
+        PatientDTO patientDTO = patientMapper.toDto(patient);
+
+
+        restPatientMockMvc.perform(post("/api/patients")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(TestUtil.convertObjectToJsonBytes(patientDTO)))
+            .andExpect(status().isBadRequest());
+
+        List<Patient> patientList = patientRepository.findAll();
+        assertThat(patientList).hasSize(databaseSizeBeforeTest);
+    }
+
+    @Test
+    @Transactional
     public void getAllPatients() throws Exception {
         // Initialize the database
         patientRepository.saveAndFlush(patient);
@@ -237,7 +263,8 @@ public class PatientResourceIT {
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
-            .andExpect(jsonPath("$.[*].tc").value(hasItem(DEFAULT_TC)));
+            .andExpect(jsonPath("$.[*].tc").value(hasItem(DEFAULT_TC)))
+            .andExpect(jsonPath("$.[*].sigorta").value(hasItem(DEFAULT_SIGORTA)));
     }
     
     @Test
@@ -254,7 +281,8 @@ public class PatientResourceIT {
             .andExpect(jsonPath("$.firstName").value(DEFAULT_FIRST_NAME))
             .andExpect(jsonPath("$.lastName").value(DEFAULT_LAST_NAME))
             .andExpect(jsonPath("$.age").value(DEFAULT_AGE))
-            .andExpect(jsonPath("$.tc").value(DEFAULT_TC));
+            .andExpect(jsonPath("$.tc").value(DEFAULT_TC))
+            .andExpect(jsonPath("$.sigorta").value(DEFAULT_SIGORTA));
     }
 
 
@@ -615,6 +643,84 @@ public class PatientResourceIT {
         defaultPatientShouldBeFound("tc.doesNotContain=" + UPDATED_TC);
     }
 
+
+    @Test
+    @Transactional
+    public void getAllPatientsBySigortaIsEqualToSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where sigorta equals to DEFAULT_SIGORTA
+        defaultPatientShouldBeFound("sigorta.equals=" + DEFAULT_SIGORTA);
+
+        // Get all the patientList where sigorta equals to UPDATED_SIGORTA
+        defaultPatientShouldNotBeFound("sigorta.equals=" + UPDATED_SIGORTA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsBySigortaIsNotEqualToSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where sigorta not equals to DEFAULT_SIGORTA
+        defaultPatientShouldNotBeFound("sigorta.notEquals=" + DEFAULT_SIGORTA);
+
+        // Get all the patientList where sigorta not equals to UPDATED_SIGORTA
+        defaultPatientShouldBeFound("sigorta.notEquals=" + UPDATED_SIGORTA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsBySigortaIsInShouldWork() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where sigorta in DEFAULT_SIGORTA or UPDATED_SIGORTA
+        defaultPatientShouldBeFound("sigorta.in=" + DEFAULT_SIGORTA + "," + UPDATED_SIGORTA);
+
+        // Get all the patientList where sigorta equals to UPDATED_SIGORTA
+        defaultPatientShouldNotBeFound("sigorta.in=" + UPDATED_SIGORTA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsBySigortaIsNullOrNotNull() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where sigorta is not null
+        defaultPatientShouldBeFound("sigorta.specified=true");
+
+        // Get all the patientList where sigorta is null
+        defaultPatientShouldNotBeFound("sigorta.specified=false");
+    }
+                @Test
+    @Transactional
+    public void getAllPatientsBySigortaContainsSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where sigorta contains DEFAULT_SIGORTA
+        defaultPatientShouldBeFound("sigorta.contains=" + DEFAULT_SIGORTA);
+
+        // Get all the patientList where sigorta contains UPDATED_SIGORTA
+        defaultPatientShouldNotBeFound("sigorta.contains=" + UPDATED_SIGORTA);
+    }
+
+    @Test
+    @Transactional
+    public void getAllPatientsBySigortaNotContainsSomething() throws Exception {
+        // Initialize the database
+        patientRepository.saveAndFlush(patient);
+
+        // Get all the patientList where sigorta does not contain DEFAULT_SIGORTA
+        defaultPatientShouldNotBeFound("sigorta.doesNotContain=" + DEFAULT_SIGORTA);
+
+        // Get all the patientList where sigorta does not contain UPDATED_SIGORTA
+        defaultPatientShouldBeFound("sigorta.doesNotContain=" + UPDATED_SIGORTA);
+    }
+
     /**
      * Executes the search, and checks that the default entity is returned.
      */
@@ -626,7 +732,8 @@ public class PatientResourceIT {
             .andExpect(jsonPath("$.[*].firstName").value(hasItem(DEFAULT_FIRST_NAME)))
             .andExpect(jsonPath("$.[*].lastName").value(hasItem(DEFAULT_LAST_NAME)))
             .andExpect(jsonPath("$.[*].age").value(hasItem(DEFAULT_AGE)))
-            .andExpect(jsonPath("$.[*].tc").value(hasItem(DEFAULT_TC)));
+            .andExpect(jsonPath("$.[*].tc").value(hasItem(DEFAULT_TC)))
+            .andExpect(jsonPath("$.[*].sigorta").value(hasItem(DEFAULT_SIGORTA)));
 
         // Check, that the count call also returns 1
         restPatientMockMvc.perform(get("/api/patients/count?sort=id,desc&" + filter))
@@ -676,7 +783,8 @@ public class PatientResourceIT {
             .firstName(UPDATED_FIRST_NAME)
             .lastName(UPDATED_LAST_NAME)
             .age(UPDATED_AGE)
-            .tc(UPDATED_TC);
+            .tc(UPDATED_TC)
+            .sigorta(UPDATED_SIGORTA);
         PatientDTO patientDTO = patientMapper.toDto(updatedPatient);
 
         restPatientMockMvc.perform(put("/api/patients")
@@ -692,6 +800,7 @@ public class PatientResourceIT {
         assertThat(testPatient.getLastName()).isEqualTo(UPDATED_LAST_NAME);
         assertThat(testPatient.getAge()).isEqualTo(UPDATED_AGE);
         assertThat(testPatient.getTc()).isEqualTo(UPDATED_TC);
+        assertThat(testPatient.getSigorta()).isEqualTo(UPDATED_SIGORTA);
     }
 
     @Test

@@ -38,9 +38,14 @@ public class Patient implements Serializable {
     private Integer age;
 
     @NotNull
-    @Pattern(regexp = "([0-9]){11}\\w+")
+    @Pattern(regexp = "([0-9])\\w+")
     @Column(name = "tc", nullable = false)
     private String tc;
+
+    @NotNull
+    @Size(max = 8)
+    @Column(name = "sigorta", length = 8, nullable = false)
+    private String sigorta;
 
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
@@ -102,6 +107,19 @@ public class Patient implements Serializable {
     public void setTc(String tc) {
         this.tc = tc;
     }
+
+    public String getSigorta() {
+        return sigorta;
+    }
+
+    public Patient sigorta(String sigorta) {
+        this.sigorta = sigorta;
+        return this;
+    }
+
+    public void setSigorta(String sigorta) {
+        this.sigorta = sigorta;
+    }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 
     @Override
@@ -129,6 +147,7 @@ public class Patient implements Serializable {
             ", lastName='" + getLastName() + "'" +
             ", age=" + getAge() +
             ", tc='" + getTc() + "'" +
+            ", sigorta='" + getSigorta() + "'" +
             "}";
     }
 }

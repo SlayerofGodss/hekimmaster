@@ -27,6 +27,7 @@
                     <th scope="col"  jhiSortBy="lastName"><span jhiTranslate="hekimmasterApp.patient.lastName">Last Name</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="age"><span jhiTranslate="hekimmasterApp.patient.age">Age</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="tc"><span jhiTranslate="hekimmasterApp.patient.tc">Tc</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="sigorta"><span jhiTranslate="hekimmasterApp.patient.sigorta">Sigorta</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -37,6 +38,7 @@
                     <td>{{ patient.lastName }}</td>
                     <td>{{ patient.age }}</td>
                     <td>{{ patient.tc }}</td>
+                    <td>{{ patient.sigorta }}</td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

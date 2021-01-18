@@ -1,11 +1,11 @@
-id;first_name;last_name;age;tc
-1;Magnus;Cassin;10;"6Q9DJE5"
-2;Enid;Jenkins;70;"7FjJ0"
-3;Adele;Gerhold;125;"0AU6q"
-4;Clemens;Connelly;18;"3I"
-5;Roscoe;Schumm;85;"0KJvR"
-6;Dennis;Macejkovic;59;"7pv"
-7;Jonatan;Brown;184;"6ODc_"
-8;Elyssa;Abernathy;69;"1YqW"
-9;Breanne;Ziemann;126;"40"
-10;Patsy;Runolfsson;35;"7g_"
+id;first_name;last_name;age;tc;sigorta
+1;Magnus;Cassin;10;"6Q9DJE5";action-i
+2;Bartholome;Kunze;135;"2mGz_";mindshar
+3;Clemens;Connelly;18;"3I";navigati
+4;Camille;Borer;124;"5KD";Berkshir
+5;Jonatan;Brown;184;"6ODc_";Garden
+6;Randal;DuBuque;199;"3qWh9M";Sleek Co
+7;Jessica;Boyer;170;"5qUmg_d";Loop
+8;Catherine;Upton;47;"4pD8";Lari
+9;Jacques;Hilll;127;"5t";Borders
+10;Ivah;Strosin;78;"0Sf";throughp

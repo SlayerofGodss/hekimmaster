@@ -55,7 +55,6 @@
         "name": "generator-jhipster-fullcalendar",
         "version": "0.0.4"
       }
-
     ],
     "enableTranslation": true,
     "nativeLanguage": "en",

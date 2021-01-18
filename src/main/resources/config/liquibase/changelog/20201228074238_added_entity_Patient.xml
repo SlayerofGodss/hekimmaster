@@ -28,6 +28,9 @@
             <column name="tc" type="varchar(255)">
                 <constraints nullable="false" />
             </column>
+            <column name="sigorta" type="varchar(8)">
+                <constraints nullable="false" />
+            </column>
             <!-- jhipster-needle-liquibase-add-column - JHipster will add columns here -->
         </createTable>
     </changeSet>
@@ -55,6 +58,7 @@
             <column name="last_name" type="string"/>
             <column name="age" type="numeric"/>
             <column name="tc" type="string"/>
+            <column name="sigorta" type="string"/>
             <!-- jhipster-needle-liquibase-add-loadcolumn - JHipster (and/or extensions) can add load columns here -->
         </loadData>
     </changeSet>

@@ -103,6 +103,9 @@ public class PatientQueryService extends QueryService<Patient> {
             if (criteria.getTc() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getTc(), Patient_.tc));
             }
+            if (criteria.getSigorta() != null) {
+                specification = specification.and(buildStringSpecification(criteria.getSigorta(), Patient_.sigorta));
+            }
         }
         return specification;
     }

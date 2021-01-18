@@ -20,7 +20,8 @@ export class PatientUpdateComponent implements OnInit {
     firstName: [null, [Validators.required, Validators.maxLength(255)]],
     lastName: [null, [Validators.required, Validators.maxLength(255)]],
     age: [null, [Validators.required, Validators.max(200)]],
-    tc: [null, [Validators.required, Validators.pattern('([0-9]){11}\\w+')]],
+    tc: [null, [Validators.required, Validators.pattern('([0-9])\\w+')]],
+    sigorta: [null, [Validators.required, Validators.maxLength(8)]],
   });
 
   constructor(protected patientService: PatientService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -38,6 +39,7 @@ export class PatientUpdateComponent implements OnInit {
       lastName: patient.lastName,
       age: patient.age,
       tc: patient.tc,
+      sigorta: patient.sigorta,
     });
   }
 
@@ -63,6 +65,7 @@ export class PatientUpdateComponent implements OnInit {
       lastName: this.editForm.get(['lastName'])!.value,
       age: this.editForm.get(['age'])!.value,
       tc: this.editForm.get(['tc'])!.value,
+      sigorta: this.editForm.get(['sigorta'])!.value,
     };
   }
 
