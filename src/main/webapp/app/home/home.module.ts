@@ -8,7 +8,7 @@ import { FullCalendarModule } from 'primeng/fullcalendar';
 import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
-  imports: [HekimmasterSharedModule, CalendarModule, RouterModule.forChild([HOME_ROUTE])],
+  imports: [HekimmasterSharedModule, CalendarModule, FullCalendarModule, RouterModule.forChild([HOME_ROUTE])],
   declarations: [HomeComponent],
 })
 export class HekimmasterHomeModule {}
