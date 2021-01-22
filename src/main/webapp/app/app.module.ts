@@ -27,7 +27,7 @@ import { CalendarModule } from 'primeng/calendar';
     HekimmasterEntityModule,
     HekimmasterAppRoutingModule,
     FullCalendarModule,
-    CalendarModule,
+    CalendarModule
   ],
   declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [MainComponent],

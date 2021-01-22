@@ -20,16 +20,16 @@
             </div>
 
             <div class="alert alert-warning" *ngSwitchCase="false">
-                <span>Hesabınız yok mu? Hemen oluşturun </span>&nbsp;
+                <span>Hesabınız yok mu? Hemen oluşturun </span>
                 <a class="alert-link" routerLink="account/register" >Heabınızı oluşturun </a>
-                <p-fullCalendar> </p-fullCalendar>
+
             </div>
         </div>
 
         <p>
             Hekimmaster ile ilgili sorularınızı yanıtlamaya hazırız.
         </p>
-
+        <p-fullCalendar  [events]="events" [options]="options"> </p-fullCalendar>
         <ul>
             <li><a href="https://www.hiraparl.com/" target="_blank" rel="noopener noreferrer" >hiraparl.com Hekimmaster </a></li>
             <li><a href="https://www.hiraparl.com/" target="_blank" rel="noopener noreferrer" > HİRA&PARL Yazılım</a></li>
