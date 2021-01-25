@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 
 import { IPatientNote, PatientNote } from 'app/shared/model/patient-note.model';
 import { PatientNoteService } from './patient-note.service';
+import { IPatient } from 'app/shared/model/patient.model';
+import { PatientService } from 'app/entities/patient/patient.service';
 
 @Component({
   selector: 'jhi-patient-note-update',
@@ -14,17 +16,26 @@ import { PatientNoteService } from './patient-note.service';
 })
 export class PatientNoteUpdateComponent implements OnInit {
   isSaving = false;
+  patients: IPatient[] = [];
 
   editForm = this.fb.group({
     id: [],
     patientNote: [],
+    patientId: [],
   });
 
-  constructor(protected patientNoteService: PatientNoteService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
+  constructor(
+    protected patientNoteService: PatientNoteService,
+    protected patientService: PatientService,
+    protected activatedRoute: ActivatedRoute,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ patientNote }) => {
       this.updateForm(patientNote);
+
+      this.patientService.query().subscribe((res: HttpResponse<IPatient[]>) => (this.patients = res.body || []));
     });
   }
 
@@ -32,6 +43,7 @@ export class PatientNoteUpdateComponent implements OnInit {
     this.editForm.patchValue({
       id: patientNote.id,
       patientNote: patientNote.patientNote,
+      patientId: patientNote.patientId,
     });
   }
 
@@ -54,6 +66,7 @@ export class PatientNoteUpdateComponent implements OnInit {
       ...new PatientNote(),
       id: this.editForm.get(['id'])!.value,
       patientNote: this.editForm.get(['patientNote'])!.value,
+      patientId: this.editForm.get(['patientId'])!.value,
     };
   }
 
@@ -71,5 +84,9 @@ export class PatientNoteUpdateComponent implements OnInit {
 
   protected onSaveError(): void {
     this.isSaving = false;
+  }
+
+  trackById(index: number, item: IPatient): any {
+    return item.id;
   }
 }

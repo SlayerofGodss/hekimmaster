@@ -16,6 +16,14 @@
                     <input type="text" class="form-control" name="patientNote" id="field_patientNote"
                            formControlName="patientNote"/>
                 </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="hekimmasterApp.patientNote.patient" for="field_patient">Patient</label>
+                    <select class="form-control" id="field_patient" name="patient" formControlName="patientId">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="patientOption.id" *ngFor="let patientOption of patients; trackBy: trackById">{{ patientOption.lastName }}</option>
+                    </select>
+                </div>
             </div>
 
             <div>

@@ -11,6 +11,10 @@ public class PatientNoteDTO implements Serializable {
 
     private String patientNote;
 
+
+    private Long patientId;
+
+    private String patientLastName;
     
     public Long getId() {
         return id;
@@ -26,6 +30,22 @@ public class PatientNoteDTO implements Serializable {
 
     public void setPatientNote(String patientNote) {
         this.patientNote = patientNote;
+    }
+
+    public Long getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(Long patientId) {
+        this.patientId = patientId;
+    }
+
+    public String getPatientLastName() {
+        return patientLastName;
+    }
+
+    public void setPatientLastName(String patientLastName) {
+        this.patientLastName = patientLastName;
     }
 
     @Override
@@ -51,6 +71,8 @@ public class PatientNoteDTO implements Serializable {
         return "PatientNoteDTO{" +
             "id=" + getId() +
             ", patientNote='" + getPatientNote() + "'" +
+            ", patientId=" + getPatientId() +
+            ", patientLastName='" + getPatientLastName() + "'" +
             "}";
     }
 }

@@ -94,6 +94,10 @@ public class PatientNoteQueryService extends QueryService<PatientNote> {
             if (criteria.getPatientNote() != null) {
                 specification = specification.and(buildStringSpecification(criteria.getPatientNote(), PatientNote_.patientNote));
             }
+            if (criteria.getPatientId() != null) {
+                specification = specification.and(buildSpecification(criteria.getPatientId(),
+                    root -> root.join(PatientNote_.patient, JoinType.LEFT).get(Patient_.id)));
+            }
         }
         return specification;
     }

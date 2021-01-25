@@ -24,6 +24,7 @@
                 <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
                     <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"  jhiSortBy="patientNote"><span jhiTranslate="hekimmasterApp.patientNote.patientNote">Patient Note</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="patientLastName"><span jhiTranslate="hekimmasterApp.patientNote.patient">Patient</span> <fa-icon icon="sort"></fa-icon></th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -31,6 +32,11 @@
                 <tr *ngFor="let patientNote of patientNotes ;trackBy: trackId">
                     <td><a [routerLink]="['/patient-note', patientNote.id, 'view']">{{ patientNote.id }}</a></td>
                     <td>{{ patientNote.patientNote }}</td>
+                    <td>
+                        <div *ngIf="patientNote.patientId">
+                            <a [routerLink]="['/patient', patientNote.patientId , 'view']" >{{ patientNote.patientLastName }}</a>
+                        </div>
+                    </td>
                     <td class="text-right">
                         <div class="btn-group">
                             <button type="submit"

@@ -1,5 +1,6 @@
 package com.hiraparl.hekimmaster.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
@@ -24,6 +25,10 @@ public class PatientNote implements Serializable {
     @Column(name = "patient_note")
     private String patientNote;
 
+    @ManyToOne
+    @JsonIgnoreProperties(value = "patientNotes", allowSetters = true)
+    private Patient patient;
+
     // jhipster-needle-entity-add-field - JHipster will add fields here
     public Long getId() {
         return id;
@@ -44,6 +49,19 @@ public class PatientNote implements Serializable {
 
     public void setPatientNote(String patientNote) {
         this.patientNote = patientNote;
+    }
+
+    public Patient getPatient() {
+        return patient;
+    }
+
+    public PatientNote patient(Patient patient) {
+        this.patient = patient;
+        return this;
+    }
+
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here
 

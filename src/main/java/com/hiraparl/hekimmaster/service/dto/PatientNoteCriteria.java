@@ -28,12 +28,15 @@ public class PatientNoteCriteria implements Serializable, Criteria {
 
     private StringFilter patientNote;
 
+    private LongFilter patientId;
+
     public PatientNoteCriteria() {
     }
 
     public PatientNoteCriteria(PatientNoteCriteria other) {
         this.id = other.id == null ? null : other.id.copy();
         this.patientNote = other.patientNote == null ? null : other.patientNote.copy();
+        this.patientId = other.patientId == null ? null : other.patientId.copy();
     }
 
     @Override
@@ -57,6 +60,14 @@ public class PatientNoteCriteria implements Serializable, Criteria {
         this.patientNote = patientNote;
     }
 
+    public LongFilter getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(LongFilter patientId) {
+        this.patientId = patientId;
+    }
+
 
     @Override
     public boolean equals(Object o) {
@@ -69,14 +80,16 @@ public class PatientNoteCriteria implements Serializable, Criteria {
         final PatientNoteCriteria that = (PatientNoteCriteria) o;
         return
             Objects.equals(id, that.id) &&
-            Objects.equals(patientNote, that.patientNote);
+            Objects.equals(patientNote, that.patientNote) &&
+            Objects.equals(patientId, that.patientId);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(
         id,
-        patientNote
+        patientNote,
+        patientId
         );
     }
 
@@ -86,6 +99,7 @@ public class PatientNoteCriteria implements Serializable, Criteria {
         return "PatientNoteCriteria{" +
                 (id != null ? "id=" + id + ", " : "") +
                 (patientNote != null ? "patientNote=" + patientNote + ", " : "") +
+                (patientId != null ? "patientId=" + patientId + ", " : "") +
             "}";
     }
 

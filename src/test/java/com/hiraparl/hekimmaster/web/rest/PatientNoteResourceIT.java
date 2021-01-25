@@ -2,6 +2,7 @@ package com.hiraparl.hekimmaster.web.rest;
 
 import com.hiraparl.hekimmaster.HekimmasterApp;
 import com.hiraparl.hekimmaster.domain.PatientNote;
+import com.hiraparl.hekimmaster.domain.Patient;
 import com.hiraparl.hekimmaster.repository.PatientNoteRepository;
 import com.hiraparl.hekimmaster.service.PatientNoteService;
 import com.hiraparl.hekimmaster.service.dto.PatientNoteDTO;
@@ -247,6 +248,26 @@ public class PatientNoteResourceIT {
 
         // Get all the patientNoteList where patientNote does not contain UPDATED_PATIENT_NOTE
         defaultPatientNoteShouldBeFound("patientNote.doesNotContain=" + UPDATED_PATIENT_NOTE);
+    }
+
+
+    @Test
+    @Transactional
+    public void getAllPatientNotesByPatientIsEqualToSomething() throws Exception {
+        // Initialize the database
+        patientNoteRepository.saveAndFlush(patientNote);
+        Patient patient = PatientResourceIT.createEntity(em);
+        em.persist(patient);
+        em.flush();
+        patientNote.setPatient(patient);
+        patientNoteRepository.saveAndFlush(patientNote);
+        Long patientId = patient.getId();
+
+        // Get all the patientNoteList where patient equals to patientId
+        defaultPatientNoteShouldBeFound("patientId.equals=" + patientId);
+
+        // Get all the patientNoteList where patient equals to patientId + 1
+        defaultPatientNoteShouldNotBeFound("patientId.equals=" + (patientId + 1));
     }
 
     /**

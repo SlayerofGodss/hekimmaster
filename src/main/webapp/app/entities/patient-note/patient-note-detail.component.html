@@ -12,6 +12,12 @@
                 <dd>
                     <span>{{ patientNote.patientNote }}</span>
                 </dd>
+                <dt><span jhiTranslate="hekimmasterApp.patientNote.patient">Patient</span></dt>
+                <dd>
+                    <div *ngIf="patientNote.patientId">
+                        <a [routerLink]="['/patient', patientNote.patientId, 'view']">{{ patientNote.patientLastName }}</a>
+                    </div>
+                </dd>
             </dl>
 
             <button type="submit"

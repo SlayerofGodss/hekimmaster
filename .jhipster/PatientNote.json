@@ -1,7 +1,15 @@
 {
   "fluentMethods": true,
   "clientRootFolder": "",
-  "relationships": [],
+  "relationships": [
+    {
+      "relationshipName": "patient",
+      "otherEntityName": "patient",
+      "relationshipType": "many-to-one",
+      "otherEntityField": "lastName",
+      "otherEntityRelationshipName": "patientNote"
+    }
+  ],
   "fields": [
     {
       "fieldName": "patientNote",

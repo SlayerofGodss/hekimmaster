@@ -16,7 +16,8 @@
       "detail": {
         "title": "Patient Note"
       },
-      "patientNote": "Patient Note"
+      "patientNote": "Patient Note",
+      "patient": "Patient"
     }
   }
 }
